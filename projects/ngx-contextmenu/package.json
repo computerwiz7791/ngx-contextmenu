@@ -1,6 +1,6 @@
 {
-  "name": "ngx-contextmenu",
-  "version": "6.0.0",
+  "name": "@framewerx/ngx-contextmenu",
+  "version": "10.0.0",
   "description": "An Angular component to show a context menu on an arbitrary component",
   "keywords": [
     "angular2",
@@ -11,15 +11,18 @@
     "ng2",
     "ng2-contextmenu"
   ],
-  "author": "Isaac Mann <isaacplmann@gmail.com>",
+  "author": "Isaac Mann",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/isaacplmann/ngx-contextmenu.git"
+    "url": "git+ssh://git@github.com/computerwiz7791/ngx-contextmenu.git"
   },
   "peerDependencies": {
-    "@angular/cdk": "^12.0.5",
-    "@angular/common": "^12.0.5",
-    "@angular/core": "^12.0.5"
+    "@angular/cdk": "^10.2.4",
+    "@angular/common": "^10.2.4",
+    "@angular/core": "^10.2.4"
+  },
+  "publishConfig": {
+    "registry": "https://pkgs.dev.azure.com/framewerx/_packaging/framewerx/npm/registry/"
   }
 }
