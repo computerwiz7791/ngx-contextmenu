@@ -69,16 +69,16 @@ const ARROW_LEFT_KEYCODE = 37;
           *ngFor="let menuItem of menuItems; let i = index"
           [class.disabled]="!isMenuItemEnabled(menuItem)"
           [class.divider]="menuItem.divider"
-          [class.dropdown-divider]="useBootstrap4 && menuItem.divider"
+          [class.dropdown-divider]="(useBootstrap4 || useBootstrap5) && menuItem.divider"
           [class.active]="menuItem.isActive && isMenuItemEnabled(menuItem)"
           [attr.role]="menuItem.divider ? 'separator' : undefined"
         >
           <a
             *ngIf="!menuItem.divider && !menuItem.passive"
             href
-            [class.dropdown-item]="useBootstrap4"
+            [class.dropdown-item]="(useBootstrap4 || useBootstrap5)"
             [class.active]="menuItem.isActive && isMenuItemEnabled(menuItem)"
-            [class.disabled]="useBootstrap4 && !isMenuItemEnabled(menuItem)"
+            [class.disabled]="(useBootstrap4 || useBootstrap5) && !isMenuItemEnabled(menuItem)"
             [class.hasSubMenu]="!!menuItem.subMenu"
             (click)="onMenuItemSelect(menuItem, $event)"
             (mouseenter)="onOpenSubMenu(menuItem, $event)"
@@ -94,8 +94,8 @@ const ARROW_LEFT_KEYCODE = 37;
             (contextmenu)="stopEvent($event)"
             class="passive"
             *ngIf="!menuItem.divider && menuItem.passive"
-            [class.dropdown-item]="useBootstrap4"
-            [class.disabled]="useBootstrap4 && !isMenuItemEnabled(menuItem)"
+            [class.dropdown-item]="(useBootstrap4 || useBootstrap5)"
+            [class.disabled]="(useBootstrap4 || useBootstrap5) && !isMenuItemEnabled(menuItem)"
           >
             <ng-template
               [ngTemplateOutlet]="menuItem.template"
@@ -135,6 +135,7 @@ export class ContextMenuContentComponent
 
   public autoFocus = false;
   public useBootstrap4 = false;
+  public useBootstrap5 = false;
   private _keyManager: ActiveDescendantKeyManager<ContextMenuItemDirective>;
   private subscription: Subscription = new Subscription();
   constructor(
@@ -147,6 +148,7 @@ export class ContextMenuContentComponent
     if (options) {
       this.autoFocus = options.autoFocus;
       this.useBootstrap4 = options.useBootstrap4;
+      this.useBootstrap5 = options.useBootstrap5;
     }
   }
 

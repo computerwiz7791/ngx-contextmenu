@@ -298,6 +298,27 @@ export class AppModule {}
 <context-menu [useBootstrap4]="true"></context-menu>
 ```
 
+## Bootstrap 5
+
+If you're using Bootstrap 5, you can specify a `useBootstrap5` property in the `forRoot` function of the `ContextMenuModule` in order to get the appropriate class names.  Like this:
+
+```js
+@NgModule({
+  import: [
+    ContextMenuModule.forRoot({
+      useBootstrap5: true,
+    }),
+  ],
+})
+export class AppModule {}
+```
+
+**Or, if you want to repeat yourself,** you can add a `useBootstrap5` attribute to each `context-menu` component.  Like this:
+
+```html
+<context-menu [useBootstrap5]="true"></context-menu>
+```
+
 ## Different styling on menus
 
 If you want to style one menu differently than other menus, you can add a custom style to the menu.
