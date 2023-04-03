@@ -50,11 +50,13 @@ export class ContextMenuService {
   private contextMenuContent: ComponentRef<ContextMenuContentComponent>;
   private overlays: OverlayRef[] = [];
   private fakeElement: any = {
-    getBoundingClientRect: (): ClientRect => ({
+    getBoundingClientRect: () => ({
       bottom: 0,
       height: 0,
       left: 0,
       right: 0,
+      x: 0,
+      y: 0,
       top: 0,
       width: 0,
     })
@@ -70,35 +72,33 @@ export class ContextMenuService {
 
     if (!parentContextMenu) {
       const mouseEvent = event as MouseEvent;
-      this.fakeElement.getBoundingClientRect = (): ClientRect => ({
+      this.fakeElement.getBoundingClientRect = () => ({
         bottom: mouseEvent.clientY,
         height: 0,
         left: mouseEvent.clientX,
         right: mouseEvent.clientX,
         top: mouseEvent.clientY,
+        x:  mouseEvent.clientX,
+        y:  mouseEvent.clientY,
         width: 0,
       });
       this.closeAllContextMenus({ eventType: 'cancel', event });
-      const positionStrategy = this.overlay.position().connectedTo(
-        new ElementRef(anchorElement || this.fakeElement),
-        { originX: 'start', originY: 'bottom' },
-        { overlayX: 'start', overlayY: 'top' })
-        .withFallbackPosition(
-        { originX: 'start', originY: 'top' },
-        { overlayX: 'start', overlayY: 'bottom' })
-        .withFallbackPosition(
-        { originX: 'end', originY: 'top' },
-        { overlayX: 'start', overlayY: 'top' })
-        .withFallbackPosition(
-        { originX: 'start', originY: 'top' },
-        { overlayX: 'end', overlayY: 'top' })
-        .withFallbackPosition(
-        { originX: 'end', originY: 'center' },
-        { overlayX: 'start', overlayY: 'center' })
-        .withFallbackPosition(
-        { originX: 'start', originY: 'center' },
-        { overlayX: 'end', overlayY: 'center' })
-        ;
+      const positionStrategy = this.overlay.position().flexibleConnectedTo(
+        new ElementRef(anchorElement || this.fakeElement))
+        .withPositions([
+        { originX: 'start', originY: 'bottom', 
+         overlayX: 'start', overlayY: 'top' },
+        { originX: 'start', originY: 'top',
+          overlayX: 'start', overlayY: 'bottom' },
+        { originX: 'end', originY: 'top' ,
+          overlayX: 'start', overlayY: 'top' },
+        { originX: 'start', originY: 'top' ,
+          overlayX: 'end', overlayY: 'top' },
+        { originX: 'end', originY: 'center' ,
+          overlayX: 'start', overlayY: 'center' },
+        { originX: 'start', originY: 'center' ,
+          overlayX: 'end', overlayY: 'center' }])
+        .withFlexibleDimensions(false);
       this.overlays = [this.overlay.create({
         positionStrategy,
         panelClass: 'ngx-contextmenu',
@@ -106,20 +106,18 @@ export class ContextMenuService {
       })];
       this.attachContextMenu(this.overlays[0], context);
     } else {
-      const positionStrategy = this.overlay.position().connectedTo(
-        new ElementRef(event ? event.target : anchorElement),
-        { originX: 'end', originY: 'top' },
-        { overlayX: 'start', overlayY: 'top' })
-        .withFallbackPosition(
-        { originX: 'start', originY: 'top' },
-        { overlayX: 'end', overlayY: 'top' })
-        .withFallbackPosition(
-        { originX: 'end', originY: 'bottom' },
-        { overlayX: 'start', overlayY: 'bottom' })
-        .withFallbackPosition(
-        { originX: 'start', originY: 'bottom' },
-        { overlayX: 'end', overlayY: 'bottom' })
-        ;
+      const positionStrategy = this.overlay.position().flexibleConnectedTo(
+        new ElementRef(event ? event.target : anchorElement))
+        .withPositions(
+          [{ originX: 'end', originY: 'top',
+          overlayX: 'start', overlayY: 'top' },
+          { originX: 'start', originY: 'top',
+          overlayX: 'end', overlayY: 'top' },
+          { originX: 'end', originY: 'bottom',
+          overlayX: 'start', overlayY: 'bottom'},
+          { originX: 'start', originY: 'bottom',
+          overlayX: 'end', overlayY: 'bottom' }])
+        .withFlexibleDimensions(false);
       const newOverlay = this.overlay.create({
         positionStrategy,
         panelClass: 'ngx-contextmenu',

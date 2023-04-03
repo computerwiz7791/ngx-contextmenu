@@ -26,14 +26,15 @@
     "start": "ng serve",
     "build": "npm run build:lib && npm run build:demo",
     "build:demo": "rimraf dist/demo && ng build",
-    "build:lib": "ng build ngx-contextmenu --prod && copyfiles README.md LICENSE dist/ngx-contextmenu/",
+    "build:lib": "ng build @framewerx/ngx-contextmenu --production && copyfiles README.md LICENSE dist/framewerx/ngx-contextmenu/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "pub": "npm run pub:lib && npm run pub:demo",
-    "pub:demo": "npm run build:demo -- --base-href /ngx-contextmenu/ && gh-pages -d dist/demo",
-    "pub:lib": "npm run build:lib && npm publish dist/ngx-contextmenu",
-    "pack:lib": "npm run build:lib && cd dist/ngx-contextmenu && npm pack && copyfiles *.tgz ../../ && cd ../.. && rimraf dist/ngx-contextmenu/*.tgz"
+    "pub:demo": "npm run build:demo -- --base-href /framewerx/ngx-contextmenu/ && gh-pages -d dist/demo",
+    "pub:lib": "npm run build:lib && npm publish dist/framewerx/ngx-contextmenu",
+    "pack:lib": "npm run build:lib && cd dist/framewerx/ngx-contextmenu && npm pack && copyfiles *.tgz ../../ && cd ../.. && rimraf dist/framewerx/ngx-contextmenu/*.tgz",
+    "refreshVSToken": "vsts-npm-auth -config .npmrc"
   },
   "private": false,
   "devDependencies": {

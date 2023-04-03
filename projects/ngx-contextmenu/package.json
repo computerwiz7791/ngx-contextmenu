@@ -1,6 +1,6 @@
 {
   "name": "@framewerx/ngx-contextmenu",
-  "version": "14.0.0",
+  "version": "14.0.1",
   "description": "An Angular component to show a context menu on an arbitrary component",
   "keywords": [
     "angular2",

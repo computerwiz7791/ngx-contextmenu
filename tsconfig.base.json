@@ -18,16 +18,13 @@
     ],
     "paths": {
       "ngx-contextmenu": [
-        "dist/ngx-contextmenu"
+        "dist/framewerx/ngx-contextmenu"
       ],
       "ngx-contextmenu/*": [
-        "dist/ngx-contextmenu/*"
+        "dist/framewerx/ngx-contextmenu/*"
       ]
     }
   },
-  "files": [
-    "lib/ngx-contextmenu"
-  ],
   "compileOnSave": false,
   "buildOnSave": false,
   "angularCompilerOptions": {

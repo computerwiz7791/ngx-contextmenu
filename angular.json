@@ -102,7 +102,7 @@
         }
       }
     },
-    "ngx-contextmenu": {
+    "@framewerx/ngx-contextmenu": {
       "root": "projects/ngx-contextmenu",
       "sourceRoot": "projects/ngx-contextmenu/src",
       "projectType": "library",
